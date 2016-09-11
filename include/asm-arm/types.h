@@ -26,6 +26,7 @@ __extension__ typedef unsigned long long __u64;
  * These aren't exported outside the kernel to avoid name space clashes
  */
 #ifdef __KERNEL__
+#ifndef __STM32F10x_H
 
 typedef signed char s8;
 typedef unsigned char u8;
@@ -39,6 +40,7 @@ typedef unsigned int u32;
 typedef signed long long s64;
 typedef unsigned long long u64;
 
+#endif
 #define BITS_PER_LONG 32
 
 /* Dma addresses are 32-bits wide.  */
