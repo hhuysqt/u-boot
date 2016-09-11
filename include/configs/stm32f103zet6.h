@@ -35,22 +35,21 @@
 #undef DEBUG
 
 /*
- * This is an ARM Cortex-M4 CPU core. Also use the common Cortex-M3 code.
+ * STM32F10X is a cortex m3 mcu.
  */
 #define CONFIG_SYS_ARMCORTEXM3
 //#define CONFIG_SYS_ARMCORTEXM4
 
 /*
- * This is the STM32-F4 device.
- * This is an extended STM32F4 device
+ * This is the STM32-F1 device.
  */
 #define CONFIG_SYS_STM32
-#define CONFIG_SYS_STM32F43X
+#define CONFIG_SYS_STM32F103ZET6
 
 /*
  * Enable GPIO driver
  */
-#define CONFIG_STM32F2_GPIO
+//#define CONFIG_STM32F2_GPIO
 
 /*
  * Display CPU and Board information
@@ -58,12 +57,12 @@
 #define CONFIG_DISPLAY_CPUINFO		1
 #define CONFIG_DISPLAY_BOARDINFO	1
 
-#define CONFIG_SYS_BOARD_REV_STR	"1.A"
+#define CONFIG_SYS_BOARD_REV_STR	"0.0"
 
 /*
  * Monitor prompt
  */
-#define CONFIG_SYS_PROMPT		"STM32F429-DISCO> "
+#define CONFIG_SYS_PROMPT		"STM32F103-hyq> "
 
 /*
  * We want to call the CPU specific initialization
@@ -122,9 +121,12 @@
 #define CONFIG_MEM_NVM_UBOOT_OFF	(128 * 1024)
 #endif
 
+/*
+ * 64 kB RAM
+ */
 #define CONFIG_MEM_RAM_BASE		0x20000000
 #define CONFIG_MEM_RAM_LEN		(20 * 1024)
-#define CONFIG_MEM_RAM_BUF_LEN		(88 * 1024)
+#define CONFIG_MEM_RAM_BUF_LEN		(24 * 1024)
 #define CONFIG_MEM_MALLOC_LEN		(16 * 1024)
 #define CONFIG_MEM_STACK_LEN		(4 * 1024)
 
@@ -134,13 +136,13 @@
 #define CONFIG_SYS_MALLOC_LEN		CONFIG_MEM_MALLOC_LEN
 
 /*
- * Configuration of the external SDRAM memory
+ * External SRAM memory(registered as DRAM)
  */
 #define CONFIG_NR_DRAM_BANKS		1
-#define CONFIG_SYS_RAM_SIZE		(8 * 1024 * 1024)
+#define CONFIG_SYS_RAM_SIZE		(2 * 1024 * 1024)
 #define CONFIG_SYS_RAM_CS		1
 #define CONFIG_SYS_RAM_FREQ_DIV		2
-#define CONFIG_SYS_RAM_BASE		0xD0000000
+#define CONFIG_SYS_RAM_BASE		0x68000000
 
 /*
  * No external Flash
@@ -160,7 +162,7 @@
 /*
  * Serial console configuration
  */
-#define CONFIG_STM32_USART_CONSOLE
+//#define CONFIG_STM32_USART_CONSOLE
 #define CONFIG_STM32_USART_PORT		1	/* USART1 */
 #define CONFIG_STM32_USART_TX_IO_PORT	0	/* PORTA */
 #define CONFIG_STM32_USART_TX_IO_PIN	9	/* GPIO9 */
@@ -173,8 +175,8 @@
  * Ethernet configuration
  */
 #define CONFIG_NET_MULTI
-#define CONFIG_STM32_ETH
-#define CONFIG_STM32_ETH_RMII
+//#define CONFIG_STM32_ETH
+//#define CONFIG_STM32_ETH_RMII
 
 /*
  * Ethernet RX buffers are malloced from the internal SRAM (more precisely,
