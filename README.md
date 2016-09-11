@@ -4,6 +4,14 @@
 Run u-boot on STM32F103ZET6, with S71GL032NA0 (2MB PSRAM and 4MB nor flash) and NAND512-A(64MB nand flash).
 
 ##Status:
+Added ST STD-lib, and modified a bit to fit with the original library.<br>
+Wrapped some functions to fit the common parts.<br>
+Add `stm32f103zet6_config` and add my files to Makefile's.<br>
+2MB SRAM drived by FSMC.<br><br>
+
+##Shortcommings
+Currently NO flash support...<br>
+So, commands like saveenv, NOR-flash or NAND-flash are not supported...<br>
 Under developing...
 
 ##Previous README...
