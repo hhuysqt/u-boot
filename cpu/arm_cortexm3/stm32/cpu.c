@@ -36,6 +36,8 @@ int print_cpuinfo(void)
 #else
 #if defined(CONFIG_SYS_ARMCORTEXM4)
 	printf("CPU  : %s\n", "STM32F4 (Cortex-M4)");
+#elif defined(CONFIG_SYS_STM32F103ZET6)
+	printf("CPU  : %s\n", "STM32F1 (Cortex-M3)");
 #else
 	printf("CPU  : %s\n", "STM32F2 (Cortex-M3)");
 #endif

@@ -236,6 +236,10 @@ typedef int (init_fnc_t) (void);
 
 int print_cpuinfo (void);
 
+#ifdef CONFIG_SYS_STM32F103ZET6
+extern int sram_init(void);
+#endif
+
 init_fnc_t *init_sequence[] = {
 #if defined(CONFIG_ARCH_CPU_INIT)
 	arch_cpu_init,		/* basic arch cpu dependent setup */
@@ -268,7 +272,11 @@ init_fnc_t *init_sequence[] = {
 #if defined(CONFIG_HARD_I2C) || defined(CONFIG_SOFT_I2C)
 	init_func_i2c,
 #endif
+#ifndef CONFIG_SYS_STM32F103ZET6
 	dram_init,		/* configure available RAM banks */
+#else
+	sram_init,
+#endif
 #if defined(CONFIG_CMD_PCI) || defined (CONFIG_PCI)
 	arm_pci_init,
 #endif
