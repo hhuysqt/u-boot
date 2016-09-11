@@ -29,7 +29,16 @@ include $(TOPDIR)/config.mk
 
 LIB	= $(obj)lib$(SOC).a
 
-COBJS	:= clock.o cpu.o envm.o wdt.o fsmc.o soc.o
+COBJS	:= cpu.o wdt.o soc.o 
+
+ifeq ($(CONFIG_SYS_STM32F103ZET6),y)
+# Add stm32f103 configs
+COBJS	+= clock_stm32f10x.o system_stm32f10x.o envm_stm32f10x.o stm32f10x_flash.o stm32f10x_fsmc.o stm32f10x_rcc.o
+else
+# Default is for stm32f2, f4 devices
+COBJS	+= clock.o envm.o fsmc.o
+endif
+
 ifeq ($(CONFIG_CMD_BUFCOPY),y)
 COBJS	+= cmd_bufcopy.o
 endif

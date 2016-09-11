@@ -30,7 +30,11 @@ include $(TOPDIR)/config.mk
 LIB	= $(obj)lib$(CPU).a
 
 START	:= start.o
-COBJS	:= cpu.o cmd_cptf.o timer.o
+COBJS	:= cpu.o cmd_cptf.o timer.o 
+ifeq ($(CONFIG_SYS_STM32F103ZET6),y)
+# Add CMSIS driver for 103 devices
+COBJS	+= core_cm3.o
+endif
 
 SRCS	:= $(START:.o=.c) $(COBJS:.o=.c)
 OBJS	:= $(addprefix $(obj),$(COBJS))

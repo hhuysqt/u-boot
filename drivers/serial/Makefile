@@ -55,6 +55,7 @@ COBJS-$(CONFIG_SCIF_CONSOLE) += serial_sh.o
 COBJS-$(CONFIG_STM32_USART_CONSOLE) += stm32_usart.o
 COBJS-$(CONFIG_KINETIS_UART_CONSOLE) += kinetis_uart.o
 COBJS-$(CONFIG_USB_TTY) += usbtty.o
+COBJS-$(CONFIG_SYS_STM32F103ZET6) += stm32f1_usart.o stm32f10x_usart.o
 
 COBJS	:= $(sort $(COBJS-y))
 SRCS	:= $(COBJS:.o=.c)
