@@ -2638,11 +2638,12 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 	tmp_id = chip->read_byte(mtd);
 
 	if (tmp_manf != *maf_id || tmp_id != dev_id) {
-		printk(KERN_INFO "%s: second ID read did not match "
+		printf("%s: second ID read did not match "
 		       "%02x,%02x against %02x,%02x\n", __func__,
 		       *maf_id, dev_id, tmp_manf, tmp_id);
 		return ERR_PTR(-ENODEV);
 	}
+	printf("ID: 0x%x\n", dev_id);
 
 	/* Lookup the flash id */
 	for (i = 0; nand_flash_ids[i].name != NULL; i++) {
@@ -2652,8 +2653,10 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 		}
 	}
 
-	if (!type)
+	if (!type){
+		printf("Device unregonized...\n");
 		return ERR_PTR(-ENODEV);
+	}
 
 	if (!mtd->name)
 		mtd->name = type->name;
