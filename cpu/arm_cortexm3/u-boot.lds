@@ -84,6 +84,7 @@ SECTIONS
 	.text :
 	{
 		*(.text)
+		*(.text*)
 		*(.rodata*)
 
 	} >NVM
