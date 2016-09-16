@@ -244,9 +244,9 @@ int sram_init(void)
 		timing.FSMC_HiZSetupTime  = 1;
 		
 		nand.FSMC_Bank = FSMC_Bank2_NAND;
-		nand.FSMC_Waitfeature = FSMC_Waitfeature_Disable;
+		nand.FSMC_Waitfeature = FSMC_Waitfeature_Enable;
 		nand.FSMC_MemoryDataWidth = FSMC_MemoryDataWidth_8b;
-		nand.FSMC_ECC = FSMC_ECC_Disable;
+		nand.FSMC_ECC = FSMC_ECC_Enable;
 		nand.FSMC_ECCPageSize = FSMC_ECCPageSize_512Bytes;
 		nand.FSMC_TCLRSetupTime = 0;
 		nand.FSMC_TARSetupTime = 0;
