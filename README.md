@@ -9,11 +9,10 @@ Wrapped some functions to fit the common parts.<br>
 Add `stm32f103zet6_config` and add my files to Makefile's.<br>
 Environment variables are saved to embedded-flash, 128k offset.
 2MB SRAM drived by FSMC started from 0x68000000.<br>
-64MB NAND flash drived by FSMC, with uboot nand commands.<br>
+64MB NAND flash drived by FSMC, with uboot nand commands, hardware ECC.<br>
 
 ##Shortcommings
 Currently NO NOR flash support...<br>
-Using software ECC for NAND, not hardware ECC from FSMC...<br>
 Under developing...
 
 ##Previous README...

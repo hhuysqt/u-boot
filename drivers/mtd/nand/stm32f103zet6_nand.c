@@ -32,6 +32,31 @@ static int stm32f103_fsmc_read_rb(struct mtd_info *mtd)
 	return GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_6);
 }
 
+static void stm32f103_fsmc_enable_nand_ecc(struct mtd_info *mtd, int mode)
+{
+	FSMC_NANDECCCmd(FSMC_Bank2_NAND,ENABLE);
+}
+
+static int stm32f103_fsmc_nand_ecc_calc(struct mtd_info *mtd, const u_char *dat, u_char *ecc_code)
+{
+	int ecc;
+	while(FSMC_GetFlagStatus(FSMC_Bank2_NAND,FSMC_FLAG_FEMPT)==Bit_RESET);
+	ecc = FSMC_GetECC(FSMC_Bank2_NAND);
+	FSMC_NANDECCCmd(FSMC_Bank2_NAND,DISABLE);
+	ecc_code[0] = ecc;
+	ecc_code[1] = ecc >> 8;
+	ecc_code[2] = ecc >> 16;
+	printf("ECC data: 0x%x\n", ecc);
+	return 0;
+}
+
+extern int nand_correct_data(struct mtd_info *mtd, u_char *dat, u_char *read_ecc, u_char *calc_ecc);
+static int stm32f103_fsmc_nand_ecc_correct(struct mtd_info *mtd, u_char *dat, u_char *read_ecc, u_char *calc_ecc)
+{
+	FSMC_NANDECCCmd(FSMC_Bank2_NAND, DISABLE);
+	nand_correct_data(mtd, dat, read_ecc, calc_ecc);
+}
+
 int board_nand_init(struct nand_chip *nand)
 {
 	/*
@@ -42,8 +67,14 @@ int board_nand_init(struct nand_chip *nand)
 	// 设置发送命令的函数
 	nand->cmd_ctrl = stm32f103_fsmc_send_cmd;
 	nand->dev_ready = stm32f103_fsmc_read_rb;
-	// 先用软件ECC
-	nand->ecc.mode = NAND_ECC_SOFT;
+	// 硬件ECC
+	nand->ecc.mode = NAND_ECC_HW;
+	nand->ecc.hwctl = stm32f103_fsmc_enable_nand_ecc;
+	nand->ecc.calculate = stm32f103_fsmc_nand_ecc_calc;
+	nand->ecc.correct = stm32f103_fsmc_nand_ecc_correct;
+	nand->ecc.size = 512;
+	nand->ecc.bytes = 3;
+	// 指定位宽：8位
 	nand->options = 0;
 
 	return 0;
